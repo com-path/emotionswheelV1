@@ -2,7 +2,16 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 import { getEmotionCombination } from '../utils/emotionCombinations';
 
-const EmotionCombiner = ({ emotions }) => {
+interface Emotion {
+  name: string;
+  intensity: 'low' | 'medium' | 'high';
+}
+
+interface EmotionCombinerProps {
+  emotions: Emotion[];
+}
+
+const EmotionCombiner: React.FC<EmotionCombinerProps> = ({ emotions }) => {
   const combination = getEmotionCombination(emotions);
 
   if (!combination) {
@@ -38,6 +47,24 @@ const EmotionCombiner = ({ emotions }) => {
               <p className="text-sm text-gray-700">{combination.advice}</p>
             </div>
           )}
+
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Selected Emotions</span>
+            <div className="mt-2 space-y-2">
+              {emotions.map((emotion, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-700">{emotion.name}</span>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    emotion.intensity === 'high' ? 'bg-red-100 text-red-700' :
+                    emotion.intensity === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-blue-100 text-blue-700'
+                  }`}>
+                    {emotion.intensity} intensity
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,19 @@
-export const emotions = [
+export interface EmotionIntensity {
+  word: string;
+  level: 'low' | 'medium' | 'high';
+}
+
+export interface Emotion {
+  id: string;
+  name: string;
+  color: string;
+  darkColor: string;
+  description: string;
+  triggers: string[];
+  intensities: EmotionIntensity[];
+}
+
+export const emotions: Emotion[] = [
   {
     id: 'joy',
     name: 'Joy',
@@ -7,9 +22,9 @@ export const emotions = [
     description: 'A feeling of great pleasure, happiness, and contentment. Joy represents the positive emotion we experience when things go well or when we achieve something meaningful.',
     triggers: ['Achievement', 'Love', 'Success', 'Good news', 'Pleasant surprises'],
     intensities: [
-      { level: 'Mild', word: 'Serenity' },
-      { level: 'Basic', word: 'Joy' },
-      { level: 'Intense', word: 'Ecstasy' }
+      { level: 'low', word: 'Serenity' },
+      { level: 'medium', word: 'Joy' },
+      { level: 'high', word: 'Ecstasy' }
     ]
   },
   {
@@ -20,9 +35,9 @@ export const emotions = [
     description: 'A feeling of confidence and reliability in someone or something. Trust forms the foundation of relationships and our sense of security in the world.',
     triggers: ['Reliability', 'Honesty', 'Consistency', 'Support', 'Safety'],
     intensities: [
-      { level: 'Mild', word: 'Acceptance' },
-      { level: 'Basic', word: 'Trust' },
-      { level: 'Intense', word: 'Admiration' }
+      { level: 'low', word: 'Acceptance' },
+      { level: 'medium', word: 'Trust' },
+      { level: 'high', word: 'Admiration' }
     ]
   },
   {
@@ -33,9 +48,9 @@ export const emotions = [
     description: 'An unpleasant emotion caused by the belief that someone or something is dangerous, likely to cause pain, or a threat. Fear serves as a protective mechanism.',
     triggers: ['Danger', 'Unknown', 'Threats', 'Vulnerability', 'Loss of control'],
     intensities: [
-      { level: 'Mild', word: 'Apprehension' },
-      { level: 'Basic', word: 'Fear' },
-      { level: 'Intense', word: 'Terror' }
+      { level: 'low', word: 'Apprehension' },
+      { level: 'medium', word: 'Fear' },
+      { level: 'high', word: 'Terror' }
     ]
   },
   {
@@ -46,9 +61,9 @@ export const emotions = [
     description: 'A brief emotional state experienced as the result of an unexpected event. Surprise can be positive or negative and helps us adapt to new situations.',
     triggers: ['Unexpected events', 'Sudden changes', 'Novel experiences', 'Startling sounds', 'Unforeseen outcomes'],
     intensities: [
-      { level: 'Mild', word: 'Distraction' },
-      { level: 'Basic', word: 'Surprise' },
-      { level: 'Intense', word: 'Amazement' }
+      { level: 'low', word: 'Distraction' },
+      { level: 'medium', word: 'Surprise' },
+      { level: 'high', word: 'Amazement' }
     ]
   },
   {
@@ -59,9 +74,9 @@ export const emotions = [
     description: 'An emotional state of unhappiness, often triggered by loss, disappointment, or hurt. Sadness helps us process difficult experiences and seek support.',
     triggers: ['Loss', 'Disappointment', 'Rejection', 'Loneliness', 'Failure'],
     intensities: [
-      { level: 'Mild', word: 'Pensiveness' },
-      { level: 'Basic', word: 'Sadness' },
-      { level: 'Intense', word: 'Grief' }
+      { level: 'low', word: 'Pensiveness' },
+      { level: 'medium', word: 'Sadness' },
+      { level: 'high', word: 'Grief' }
     ]
   },
   {
@@ -72,9 +87,9 @@ export const emotions = [
     description: 'A feeling of revulsion or strong disapproval aroused by something unpleasant or offensive. Disgust helps us avoid harmful substances or situations.',
     triggers: ['Unpleasant tastes', 'Bad smells', 'Moral violations', 'Contamination', 'Offensive behavior'],
     intensities: [
-      { level: 'Mild', word: 'Boredom' },
-      { level: 'Basic', word: 'Disgust' },
-      { level: 'Intense', word: 'Loathing' }
+      { level: 'low', word: 'Boredom' },
+      { level: 'medium', word: 'Disgust' },
+      { level: 'high', word: 'Loathing' }
     ]
   },
   {
@@ -85,9 +100,9 @@ export const emotions = [
     description: 'A strong feeling of annoyance, displeasure, or hostility. Anger often arises when we perceive injustice, threats, or obstacles to our goals.',
     triggers: ['Injustice', 'Frustration', 'Threats', 'Disrespect', 'Blocked goals'],
     intensities: [
-      { level: 'Mild', word: 'Annoyance' },
-      { level: 'Basic', word: 'Anger' },
-      { level: 'Intense', word: 'Rage' }
+      { level: 'low', word: 'Annoyance' },
+      { level: 'medium', word: 'Anger' },
+      { level: 'high', word: 'Rage' }
     ]
   },
   {
@@ -98,9 +113,9 @@ export const emotions = [
     description: 'The emotion of looking forward to future events, often with pleasure or excitement. Anticipation helps us prepare for what\'s to come.',
     triggers: ['Future events', 'Planning', 'Hope', 'Expectations', 'Possibilities'],
     intensities: [
-      { level: 'Mild', word: 'Interest' },
-      { level: 'Basic', word: 'Anticipation' },
-      { level: 'Intense', word: 'Vigilance' }
+      { level: 'low', word: 'Interest' },
+      { level: 'medium', word: 'Anticipation' },
+      { level: 'high', word: 'Vigilance' }
     ]
   }
 ];

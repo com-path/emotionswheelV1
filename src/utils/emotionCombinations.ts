@@ -1,3 +1,8 @@
+interface Emotion {
+  name: string;
+  intensity: 'low' | 'medium' | 'high';
+}
+
 // Emotion combination mappings based on Plutchik's theory
 const emotionCombinations = {
   // Two-emotion combinations
@@ -64,35 +69,47 @@ const emotionCombinations = {
   }
 };
 
-export const getEmotionCombination = (emotions) => {
+export const getEmotionCombination = (emotions: Emotion[]) => {
   if (emotions.length < 2) return null;
   
   // Sort emotions by name to create consistent keys
   const sortedNames = emotions.map(e => e.name.toLowerCase()).sort();
   const combinationKey = sortedNames.join('+');
   
-  // Check for exact match
-  if (emotionCombinations[combinationKey]) {
-    return emotionCombinations[combinationKey];
-  }
+  // Get base combination
+  let combination = emotionCombinations[combinationKey];
   
-  // Check for reverse order (for two emotions)
-  if (emotions.length === 2) {
+  // If no exact match, try reverse order for two emotions
+  if (!combination && emotions.length === 2) {
     const reverseKey = sortedNames.reverse().join('+');
-    if (emotionCombinations[reverseKey]) {
-      return emotionCombinations[reverseKey];
+    combination = emotionCombinations[reverseKey];
+  }
+  
+  // If still no match, create a general combination
+  if (!combination) {
+    if (emotions.length >= 3) {
+      return {
+        name: 'Complex Emotional State',
+        description: `A nuanced emotional experience combining ${emotions.map(e => e.name.toLowerCase()).join(', ')}. This complexity reflects the rich tapestry of human emotions.`,
+        example: 'Like feeling nervous excitement before a big presentation while also feeling grateful for the opportunity.',
+        advice: 'Complex emotions are normal and healthy. Take time to identify each component to better understand your experience.'
+      };
     }
+    return null;
   }
-  
-  // For three or more emotions, create a general combination
-  if (emotions.length >= 3) {
-    return {
-      name: 'Complex Emotional State',
-      description: `A nuanced emotional experience combining ${emotions.map(e => e.name.toLowerCase()).join(', ')}. This complexity reflects the rich tapestry of human emotions.`,
-      example: 'Like feeling nervous excitement before a big presentation while also feeling grateful for the opportunity.',
-      advice: 'Complex emotions are normal and healthy. Take time to identify each component to better understand your experience.'
-    };
-  }
-  
-  return null;
+
+  // Enhance the combination description based on intensities
+  const intensityDescription = emotions.map(e => 
+    `${e.name} (${e.intensity} intensity)`
+  ).join(' and ');
+
+  return {
+    ...combination,
+    description: `${combination.description} This combination involves ${intensityDescription}.`,
+    intensityContext: emotions.map(e => ({
+      emotion: e.name,
+      intensity: e.intensity,
+      impact: e.intensity === 'high' ? 'strong' : e.intensity === 'medium' ? 'moderate' : 'subtle'
+    }))
+  };
 };

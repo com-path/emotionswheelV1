@@ -1,6 +1,32 @@
 import React from 'react';
 
-const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) => {
+interface EmotionIntensity {
+  word: string;
+  level: 'low' | 'medium' | 'high';
+}
+
+interface Emotion {
+  name: string;
+  color: string;
+  darkColor: string;
+  intensities: EmotionIntensity[];
+}
+
+interface EmotionSegmentProps {
+  emotion: Emotion;
+  index: number;
+  total: number;
+  onEmotionSelect: (emotion: Emotion, intensity: EmotionIntensity) => void;
+  selectedEmotions: Array<{ emotion: Emotion; intensity: EmotionIntensity }>;
+}
+
+const EmotionSegment: React.FC<EmotionSegmentProps> = ({ 
+  emotion, 
+  index, 
+  total, 
+  onEmotionSelect,
+  selectedEmotions 
+}) => {
   const angle = (360 / total) * index;
   const nextAngle = (360 / total) * (index + 1);
   
@@ -8,14 +34,11 @@ const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) =
   const startAngle = (angle * Math.PI) / 180;
   const endAngle = (nextAngle * Math.PI) / 180;
   
-  
   // Calculate path coordinates for the segment
   const centerX = 200;
   const centerY = 200;
-  const innerRadius = 60;
-  const middleRadius = 120;
-  const outerRadius = 180;
-  const segmentWidth = 60; // Width of each intensity level
+  const innerRadius = 50;
+  const segmentWidth = 50; // Width of each intensity level
   
   // Function to generate path data for a segment
   const generatePathData = (startRadius: number, endRadius: number) => {
@@ -58,6 +81,14 @@ const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) =
   const basicTextY = centerY + basicTextRadius * Math.sin(textAngle);
   const intenseTextX = centerX + intenseTextRadius * Math.cos(textAngle);
   const intenseTextY = centerY + intenseTextRadius * Math.sin(textAngle);
+
+  // Check if an intensity level is selected
+  const isIntensitySelected = (intensity: EmotionIntensity) => {
+    return selectedEmotions.some(
+      selected => selected.emotion.name === emotion.name && 
+                 selected.intensity.level === intensity.level
+    );
+  };
   
   return (
     <g>
@@ -65,15 +96,15 @@ const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) =
       <path
         d={mildPath}
         fill={emotion.color}
-        fillOpacity="0.2"
+        fillOpacity={isIntensitySelected(emotion.intensities[0]) ? "0.4" : "0.2"}
         stroke="white"
         strokeWidth="1"
         className={`cursor-pointer transition-all duration-300 ${
-          isSelected 
+          isIntensitySelected(emotion.intensities[0])
             ? 'drop-shadow-lg transform scale-105' 
             : 'hover:drop-shadow-md hover:brightness-110'
         }`}
-        onClick={() => onEmotionClick(emotion)}
+        onClick={() => onEmotionSelect(emotion, emotion.intensities[0])}
       />
       <text
         x={mildTextX}
@@ -89,15 +120,15 @@ const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) =
       <path
         d={basicPath}
         fill={emotion.color}
-        fillOpacity="0.5"
+        fillOpacity={isIntensitySelected(emotion.intensities[1]) ? "0.7" : "0.5"}
         stroke="white"
         strokeWidth="1"
         className={`cursor-pointer transition-all duration-300 ${
-          isSelected 
+          isIntensitySelected(emotion.intensities[1])
             ? 'drop-shadow-lg transform scale-105' 
             : 'hover:drop-shadow-md hover:brightness-110'
         }`}
-        onClick={() => onEmotionClick(emotion)}
+        onClick={() => onEmotionSelect(emotion, emotion.intensities[1])}
       />
       <text
         x={basicTextX}
@@ -113,15 +144,15 @@ const EmotionSegment = ({ emotion, index, total, onEmotionClick, isSelected }) =
       <path
         d={intensePath}
         fill={emotion.darkColor}
-        fillOpacity="0.8"
+        fillOpacity={isIntensitySelected(emotion.intensities[2]) ? "1" : "0.8"}
         stroke="white"
         strokeWidth="1"
         className={`cursor-pointer transition-all duration-300 ${
-          isSelected 
+          isIntensitySelected(emotion.intensities[2])
             ? 'drop-shadow-lg transform scale-105' 
             : 'hover:drop-shadow-md hover:brightness-110'
         }`}
-        onClick={() => onEmotionClick(emotion)}
+        onClick={() => onEmotionSelect(emotion, emotion.intensities[2])}
       />
       <text
         x={intenseTextX}
