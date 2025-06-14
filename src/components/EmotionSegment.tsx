@@ -111,7 +111,7 @@ const EmotionSegment: React.FC<EmotionSegmentProps> = ({
         y={mildTextY}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
+        className="text-[8px] md:text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
       >
         {emotion.intensities[0].word}
       </text>
@@ -135,7 +135,7 @@ const EmotionSegment: React.FC<EmotionSegmentProps> = ({
         y={basicTextY}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
+        className="text-[8px] md:text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
       >
         {emotion.intensities[1].word}
       </text>
@@ -159,7 +159,7 @@ const EmotionSegment: React.FC<EmotionSegmentProps> = ({
         y={intenseTextY}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
+        className="text-[8px] md:text-[10px] font-medium fill-gray-700 pointer-events-none select-none"
       >
         {emotion.intensities[2].word}
       </text>
