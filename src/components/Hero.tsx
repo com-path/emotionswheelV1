@@ -1,6 +1,7 @@
 import React from 'react';
 import { Brain, Sparkles, Users } from 'lucide-react';
 import EmotionWheel from './EmotionWheel';
+import About from './About';
 
 const Hero = () => {
   return (
@@ -22,9 +23,9 @@ const Hero = () => {
             <a href="#wheel" className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105">
               Explore the Wheel
             </a>
-            <button className="border-2 border-purple-500 text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-50 transition-all duration-300">
+            <a href="#about" className="border-2 border-purple-500 text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-purple-50 transition-all duration-300">
               Learn More
-            </button>
+            </a>
           </div>
         </div>
 
@@ -36,6 +37,10 @@ const Hero = () => {
           <div className="w-full max-w-[1200px] mx-auto">
             <EmotionWheel />
           </div>
+        </div>
+
+        <div className="my-16">
+          <About />
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mt-16">
